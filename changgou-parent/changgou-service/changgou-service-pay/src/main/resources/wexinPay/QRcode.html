@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>二维码入门小demo</title>
+    <script src="qrious.js"></script>
+</head>
+<body>
+<img id="qrious">
+<script>
+    var qr = new QRious({
+        element:document.getElementById('qrious'),
+        size:250,
+        level:'H',
+        value:'https://www.baidu.com'
+    });
+</script>
+</body>
+</html>

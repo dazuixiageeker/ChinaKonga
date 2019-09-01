@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>二维码入门小demo</title>
+</head>
+<body>
+<img id="qrious">
+<script src="qrious.js"></script>
+<script>
+ var qr = new QRious({
+	    element:document.getElementById('qrious'),
+	    size:250, 	   
+     	level:'M',	   
+     	value:'weixin://wxpay/bizpayurl?pr=3QV4CFS'
+	});
+</script>
+</body>
+</html>

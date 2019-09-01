@@ -1,0 +1,68 @@
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+      routes:
+        - id: changgou_goods_route
+          #uri: http://localhost:18081
+          uri: lb://goods
+          predicates:
+            #- Host=cloud.changgou.com**
+            - Path=/api/album/**, /api/brand/**, /api/cache/**, /api/categoryBrand/**, /api/category/**, /api/para/**,/api/pref/**,/api/sku/**,/api/spec/**,/api/spu/**,/api/stockBack/**,/api/template/**
+          filters:
+          #- PrefixPath=/brand
+            - StripPrefix=1
+          -name: RequestRateLimiter
+          -args:
+            key-resolver: "#{@ipKeyResolver}"
+            redis-rate-limiter.replenishRate: 1
+            redis-rate-limiter.burstCapacity: 1
+              #用户微服务
+        - id: changgou_user_route
+          uri: lb://user
+          predicates:
+            - Path=/api/user/**,/api/address/**,/api/areas/**,/api/cities/**,/api/provinces/**
+          filters:
+            - StripPrefix=1
+        - id: changgou_order_route
+          uri: lb://order
+          predicates:
+            - Path=/api/cart/**,/api/categoryReport/**,/api/orderConfig/**,/api/order/**,/api/orderItem/**,/api/orderLog/**,/api/preferential/**,/api/returnCause/**,/api/returnOrder/**,/api/returnOrderItem/**
+          filters:
+            - StripPrefix=1
+        #订单渲染微服务
+        - id: changgou_order_web_route
+          uri: lb://order-web
+          predicates:
+            - Path=/api/wcart/**, /api/worder/**
+          filters:
+            - StripPrefix=1
+  application:
+    name: gateway-web
+redis:
+  host: 192.168.211.132
+  port: 6379
+
+server:
+  port: 8001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka
+  instance:
+    prefer-ip-address: true
+management:
+  endpoint:
+    gateway:
+      enabled: true
+    web:
+      exposure:
+        include: true

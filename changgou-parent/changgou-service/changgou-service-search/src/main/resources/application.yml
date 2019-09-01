@@ -1,0 +1,36 @@
+server:
+  port: 18086
+  connection-timeout: 10000
+spring:
+  application:
+    name: search
+  data:
+    elasticsearch:
+      cluster-name: my-application
+      cluster-nodes: 192.168.211.132:9300
+  couchbase:
+    env:
+      timeouts:
+        socket-connect: 10000
+  main:
+    allow-bean-definition-overriding: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka
+  instance:
+    prefer-ip-address: true
+feign:
+  hystrix:
+    enabled: true
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000

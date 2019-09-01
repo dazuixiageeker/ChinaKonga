@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>changgou-parent</artifactId>
+        <groupId>com.changgou</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <modules>
+        <module>changgou-service-goods-api</module>
+        <module>changgou-service-content-api</module>
+        <module>changgou-service-search-api</module>
+        <module>changgou-web-item-api</module>
+        <module>changgou-service-user-api</module>
+        <module>changgou-service-order-api</module>
+        <module>changgou-service-seckill-api</module>
+    </modules>
+    <artifactId>changgou-service-api</artifactId>
+
+
+    <!--依赖-->
+    <dependencies>
+        <!--添加changgou-common的依赖-->
+        <dependency>
+            <groupId>com.changgou</groupId>
+            <artifactId>changgou-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+             <exclusions>
+                 <exclusion>
+                     <groupId>org.springframework.cloud</groupId>
+                     <artifactId>spring-cloud-starter-oauth2</artifactId>
+                 </exclusion>
+             </exclusions>
+        </dependency>
+
+
+        <!--添加persistence依赖-->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <!--<version>1.0</version>-->
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>
